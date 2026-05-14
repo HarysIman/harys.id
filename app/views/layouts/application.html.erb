@@ -2,12 +2,31 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <title><%= content_for(:title) || "Harys Imanulloh — Portofolio" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : seo_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="<%= content_for(:description) || "Portofolio personal Harys Imanulloh. Strategi pencarian, brand digital, dan beberapa proyek yang masih berjalan. Banjarnegara, Jawa Tengah." %>">
+    <meta name="description" content="<%= content_for?(:description) ? seo_description(yield(:description)) : seo_description %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Harys.id">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <%# Canonical %>
+    <link rel="canonical" href="<%= content_for?(:canonical) ? yield(:canonical) : canonical_url %>">
+
+    <%# Open Graph %>
+    <meta property="og:site_name" content="Harys Imanulloh">
+    <meta property="og:locale"    content="id_ID">
+    <meta property="og:type"      content="<%= content_for?(:og_type) ? yield(:og_type) : "website" %>">
+    <meta property="og:title"     content="<%= content_for?(:title) ? yield(:title) : seo_title %>">
+    <meta property="og:description" content="<%= content_for?(:description) ? seo_description(yield(:description)) : seo_description %>">
+    <meta property="og:url"       content="<%= content_for?(:canonical) ? yield(:canonical) : canonical_url %>">
+    <meta property="og:image"     content="<%= content_for?(:og_image) ? yield(:og_image) : ApplicationHelper::DEFAULT_OG_IMAGE %>">
+
+    <%# Twitter Card %>
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="<%= content_for?(:title) ? yield(:title) : seo_title %>">
+    <meta name="twitter:description" content="<%= content_for?(:description) ? seo_description(yield(:description)) : seo_description %>">
+    <meta name="twitter:image"       content="<%= content_for?(:og_image) ? yield(:og_image) : ApplicationHelper::DEFAULT_OG_IMAGE %>">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

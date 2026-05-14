@@ -1,5 +1,13 @@
 <% content_for :title, "#{@post.title} — Harys Imanulloh" %>
-<% content_for :description, @post.excerpt.presence || @post.title %>
+<% content_for :description, @post.excerpt.presence || @post.body.to_plain_text.truncate(155) %>
+<% content_for :og_type, "article" %>
+<% content_for :canonical, canonical_url("/blog/#{@post.slug}") %>
+<% if @post.cover_image.attached? %>
+  <% content_for :og_image, url_for(@post.cover_image) %>
+<% end %>
+<% content_for :head do %>
+  <script type="application/ld+json"><%= blog_posting_schema(@post) %></script>
+<% end %>
 
 <article class="post-article">
 

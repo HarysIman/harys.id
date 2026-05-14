@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
+  get "sitemap.xml", to: "sitemap#index", defaults: { format: :xml }, as: :sitemap
 
   # Blog publik
   resources :posts, path: "blog", param: :slug, only: [ :index, :show ] do

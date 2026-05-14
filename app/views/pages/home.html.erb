@@ -1,4 +1,9 @@
 <% content_for :title, "Harys Imanulloh — Portofolio" %>
+<% content_for :canonical, canonical_url("/") %>
+<% content_for :head do %>
+  <script type="application/ld+json"><%= person_schema %></script>
+  <script type="application/ld+json"><%= website_schema %></script>
+<% end %>
 
 <div data-controller="reveal">
 

@@ -7,7 +7,7 @@ class Admin::SessionsController < ApplicationController
 
   def create
     username = ENV.fetch("ADMIN_USERNAME", "harys")
-    password = ENV.fetch("ADMIN_PASSWORD", "ganti-password-ini")
+    password = ENV.fetch("ADMIN_PASSWORD", "87654321")
 
     if params[:username] == username && params[:password] == password
       session[:admin_authenticated] = true

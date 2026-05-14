@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <% @static_pages.each do |page| %>
+  <url>
+    <loc><%= page[:loc] %></loc>
+    <priority><%= page[:priority] %></priority>
+    <changefreq><%= page[:changefreq] %></changefreq>
+  </url>
+  <% end %>
+
+  <% @posts.each do |post| %>
+  <url>
+    <loc><%= post_url(post) %></loc>
+    <lastmod><%= post.updated_at.strftime("%Y-%m-%d") %></lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <% end %>
+
+</urlset>

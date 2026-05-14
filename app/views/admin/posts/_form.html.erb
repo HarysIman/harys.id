@@ -1,0 +1,73 @@
+<%= form_with model: [:admin, post], class: "admin-form" do |f| %>
+  <% if post.errors.any? %>
+    <div class="admin-flash admin-flash--alert">
+      <% post.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="admin-form-main">
+
+    <%# Judul %>
+    <div class="admin-field admin-field--full">
+      <%= f.label :title, "Judul", class: "admin-label" %>
+      <%= f.text_field :title, placeholder: "Judul artikel...", class: "admin-input admin-input--title" %>
+    </div>
+
+    <%# Slug %>
+    <div class="admin-field admin-field--full">
+      <%= f.label :slug, "Slug (URL)", class: "admin-label" %>
+      <div class="admin-input-prefix-wrap">
+        <span class="admin-input-prefix">harys.id/blog/</span>
+        <%= f.text_field :slug, placeholder: "judul-artikel", class: "admin-input admin-input--slug" %>
+      </div>
+    </div>
+
+    <%# Body (Trix) %>
+    <div class="admin-field admin-field--full">
+      <%= f.label :body, "Isi Artikel", class: "admin-label" %>
+      <%= f.rich_text_area :body, class: "admin-trix" %>
+    </div>
+
+    <%# Excerpt %>
+    <div class="admin-field admin-field--full">
+      <%= f.label :excerpt, "Excerpt", class: "admin-label" %>
+      <span class="admin-field-hint" style="margin-top: -4px;">Ringkasan 1–2 kalimat yang muncul di halaman daftar blog dan preview. Bukan bagian dari artikel.</span>
+      <%= f.text_area :excerpt, placeholder: "Contoh: Kenapa saya lebih suka kerja dari kota kecil, dan apa yang berubah setelah tiga tahun.", rows: 3, class: "admin-input admin-textarea" %>
+    </div>
+
+    <div class="admin-form-row">
+      <%# Kategori %>
+      <div class="admin-field">
+        <%= f.label :category, "Kategori", class: "admin-label" %>
+        <%= f.text_field :category, placeholder: "SEO, Kehidupan, Digital...", class: "admin-input" %>
+      </div>
+
+      <%# Published at %>
+      <div class="admin-field">
+        <%= f.label :published_at, "Tanggal Publish", class: "admin-label" %>
+        <%= f.datetime_local_field :published_at, class: "admin-input" %>
+        <span class="admin-field-hint">Kosongkan = simpan sebagai draft</span>
+      </div>
+    </div>
+
+    <%# Cover image %>
+    <div class="admin-field admin-field--full">
+      <%= f.label :cover_image, "Cover Image", class: "admin-label" %>
+      <%= f.file_field :cover_image, class: "admin-input-file", accept: "image/*" %>
+      <% if post.cover_image.attached? %>
+        <div class="admin-cover-preview">
+          <%= image_tag post.cover_image, class: "admin-cover-img" %>
+          <span class="admin-field-hint">Cover saat ini. Upload baru untuk mengganti.</span>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="admin-form-footer">
+    <%= f.submit post.persisted? ? "Simpan Perubahan" : "Buat Artikel", class: "admin-btn admin-btn--primary" %>
+    <%= link_to "Batal", admin_posts_path, class: "admin-btn admin-btn--ghost" %>
+  </div>
+<% end %>

@@ -1,0 +1,111 @@
+<% content_for :title, "#{@post.title} — Harys Imanulloh" %>
+<% content_for :description, @post.excerpt.presence || @post.title %>
+
+<article class="post-article">
+
+  <%# Header %>
+  <header class="post-header section-pad">
+    <div class="container">
+      <div class="post-meta-top">
+        <%= link_to posts_path, class: "post-back" do %>
+          ← Blog
+        <% end %>
+        <% if @post.category.present? %>
+          <span class="karya-tag"><%= @post.category %></span>
+        <% end %>
+      </div>
+
+      <h1 class="post-title"><%= @post.title %></h1>
+
+      <div class="post-byline">
+        <div class="post-author">
+          <div class="post-author-avatar">H</div>
+          <div>
+            <div class="post-author-name">Harys Imanulloh</div>
+            <div class="post-author-loc">Banjarnegara, Jawa Tengah</div>
+          </div>
+        </div>
+        <time class="post-date" datetime="<%= @post.published_at.iso8601 %>">
+          <%= @post.published_at.strftime("%-d %B %Y") %>
+        </time>
+      </div>
+    </div>
+  </header>
+
+  <%# Cover image %>
+  <% if @post.cover_image.attached? %>
+    <div class="post-cover">
+      <%= image_tag @post.cover_image, class: "post-cover-img", alt: @post.title %>
+    </div>
+  <% end %>
+
+  <%# Body %>
+  <div class="post-body section-pad">
+    <div class="container">
+      <div class="post-content">
+        <%= @post.body %>
+      </div>
+    </div>
+  </div>
+
+  <%# Related posts %>
+  <% if @related.any? %>
+    <section class="post-related section-pad">
+      <div class="container">
+        <div class="section-num" style="margin-bottom: 40px;">Artikel Terkait</div>
+        <div class="karya-list">
+          <% @related.each do |related| %>
+            <%= link_to post_path(related), class: "karya-item" do %>
+              <span class="karya-num"><%= related.published_at.strftime("%b %Y") %></span>
+              <div>
+                <div class="karya-title">
+                  <%= related.title %>
+                  <small><%= related.excerpt.presence || "" %></small>
+                </div>
+              </div>
+              <span class="karya-tag"><%= related.category.presence || "Tulisan" %></span>
+              <span class="karya-arrow">→</span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <%# Comments %>
+  <section class="post-comments section-pad" id="komentar">
+    <div class="container">
+      <div class="section-num" style="margin-bottom: 52px;">
+        Komentar
+        <% if @post.comments.any? %>
+          <span style="color: var(--ink-faint); margin-left: 8px;">(<%= @post.comments.count %>)</span>
+        <% end %>
+      </div>
+
+      <% if @post.comments.any? %>
+        <div class="comments-list">
+          <% @post.comments.order(created_at: :asc).each do |comment| %>
+            <div class="comment-item">
+              <div class="comment-avatar"><%= comment.name.first.upcase %></div>
+              <div class="comment-body-wrap">
+                <div class="comment-header">
+                  <span class="comment-name"><%= comment.name %></span>
+                  <time class="comment-time"><%= comment.created_at.strftime("%-d %b %Y") %></time>
+                </div>
+                <p class="comment-text"><%= simple_format(comment.body) %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="comment-form-wrap">
+        <div class="section-num" style="margin-bottom: 36px; margin-top: <%= @post.comments.any? ? "64px" : "0" %>;">
+          Tinggalkan Komentar
+        </div>
+        <%= render "comment_form", comment: @comment %>
+      </div>
+    </div>
+  </section>
+
+</article>

@@ -1,0 +1,37 @@
+<% content_for :title, "Blog — Harys Imanulloh" %>
+<% content_for :description, "Tulisan Harys Imanulloh seputar SEO, dunia digital, dan kehidupan." %>
+
+<section class="blog-hero section-pad">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">Blog</div>
+      <h1 class="section-title">Tulisan<br />&amp; Pikiran <span class="jp">ブログ</span></h1>
+    </div>
+  </div>
+</section>
+
+<section class="blog-list-section">
+  <div class="container">
+    <% if @posts.any? %>
+      <div class="karya-list">
+        <% @posts.each_with_index do |post, i| %>
+          <%= link_to post_path(post), class: "karya-item" do %>
+            <span class="karya-num"><%= "%02d" % (i + 1) %></span>
+            <div>
+              <div class="karya-title">
+                <%= post.title %>
+                <small><%= post.excerpt.presence || "" %></small>
+              </div>
+            </div>
+            <span class="karya-tag"><%= post.category.presence || "Tulisan" %></span>
+            <span class="blog-date"><%= post.published_at.strftime("%-d %b %Y") %></span>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="blog-empty">
+        <p>Belum ada tulisan. Nantikan tulisan pertama.</p>
+      </div>
+    <% end %>
+  </div>
+</section>

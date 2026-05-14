@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= content_for(:title) || "Admin" %> — Harys.id</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="admin-body">
+    <nav class="admin-nav">
+      <div class="admin-nav-inner">
+        <a href="<%= admin_root_path %>" class="admin-logo">
+          <span class="logo-mark"></span> Admin
+        </a>
+        <div class="admin-nav-links">
+          <a href="<%= admin_posts_path %>">Artikel</a>
+          <a href="<%= new_admin_post_path %>" class="admin-nav-new">+ Tulis Baru</a>
+          <a href="<%= root_path %>" target="_blank">← Lihat Site</a>
+          <%= button_to "Logout", admin_logout_path, method: :delete, class: "admin-logout-btn", form: { data: { turbo: false } } %>
+        </div>
+      </div>
+    </nav>
+
+    <main class="admin-main">
+      <% if notice.present? %>
+        <div class="admin-flash admin-flash--notice"><%= notice %></div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="admin-flash admin-flash--alert"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

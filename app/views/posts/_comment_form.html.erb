@@ -1,0 +1,27 @@
+<%= form_with model: [@post, comment], class: "comment-form" do |f| %>
+  <% if comment.errors.any? %>
+    <div class="comment-errors">
+      <% comment.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="comment-form-row">
+    <div class="comment-field">
+      <%= f.label :name, "Nama", class: "comment-label" %>
+      <%= f.text_field :name, placeholder: "Nama kamu", class: "comment-input" %>
+    </div>
+    <div class="comment-field">
+      <%= f.label :email, "Email (opsional)", class: "comment-label" %>
+      <%= f.email_field :email, placeholder: "email@kamu.com", class: "comment-input" %>
+    </div>
+  </div>
+
+  <div class="comment-field">
+    <%= f.label :body, "Komentar", class: "comment-label" %>
+    <%= f.text_area :body, placeholder: "Tulis komentarmu...", rows: 4, class: "comment-input comment-textarea" %>
+  </div>
+
+  <%= f.submit "Kirim Komentar", class: "comment-submit" %>
+<% end %>

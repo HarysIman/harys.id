@@ -1,0 +1,54 @@
+<% content_for :title, "Semua Artikel" %>
+
+<div class="admin-page">
+  <div class="admin-page-header">
+    <h1 class="admin-page-title">Artikel</h1>
+    <%= link_to "Tulis Baru", new_admin_post_path, class: "admin-btn admin-btn--primary" %>
+  </div>
+
+  <% if @posts.any? %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Judul</th>
+          <th>Kategori</th>
+          <th>Status</th>
+          <th>Tanggal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td class="admin-table-title">
+              <%= link_to post.title, admin_post_path(post) %>
+            </td>
+            <td class="admin-table-meta"><%= post.category.presence || "—" %></td>
+            <td>
+              <span class="admin-badge <%= post.published? ? "admin-badge--live" : "admin-badge--draft" %>">
+                <%= post.published? ? "Live" : "Draft" %>
+              </span>
+            </td>
+            <td class="admin-table-meta">
+              <%= post.published_at ? post.published_at.strftime("%-d %b %Y") : "—" %>
+            </td>
+            <td class="admin-table-actions">
+              <%= link_to "Edit", edit_admin_post_path(post), class: "admin-link" %>
+              <% if post.published? %>
+                <%= link_to "Lihat", post_path(post), class: "admin-link", target: "_blank" %>
+              <% end %>
+              <%= button_to "Hapus", admin_post_path(post), method: :delete,
+                    class: "admin-link admin-link--danger",
+                    data: { confirm: "Yakin hapus artikel ini?" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="admin-empty">
+      <p>Belum ada artikel.</p>
+      <%= link_to "Tulis artikel pertama →", new_admin_post_path, class: "admin-link" %>
+    </div>
+  <% end %>
+</div>

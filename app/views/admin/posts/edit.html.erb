@@ -1,0 +1,11 @@
+<% content_for :title, "Edit: #{@post.title}" %>
+
+<div class="admin-page">
+  <div class="admin-page-header">
+    <h1 class="admin-page-title">Edit Artikel</h1>
+    <% if @post.published? %>
+      <%= link_to "Lihat di Blog →", post_path(@post), class: "admin-link", target: "_blank" %>
+    <% end %>
+  </div>
+  <%= render "form", post: @post %>
+</div>

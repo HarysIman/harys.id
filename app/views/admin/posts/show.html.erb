@@ -1,0 +1,38 @@
+<% content_for :title, @post.title %>
+
+<div class="admin-page">
+  <div class="admin-page-header">
+    <div>
+      <span class="admin-badge <%= @post.published? ? "admin-badge--live" : "admin-badge--draft" %>" style="margin-bottom: 12px; display: inline-block;">
+        <%= @post.published? ? "Live" : "Draft" %>
+      </span>
+      <h1 class="admin-page-title"><%= @post.title %></h1>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <%= link_to "Edit", edit_admin_post_path(@post), class: "admin-btn admin-btn--primary" %>
+      <% if @post.published? %>
+        <%= link_to "Lihat di Blog →", post_path(@post), class: "admin-btn admin-btn--ghost", target: "_blank" %>
+      <% end %>
+      <%= button_to "Hapus", admin_post_path(@post), method: :delete,
+            class: "admin-btn admin-btn--danger",
+            data: { confirm: "Yakin hapus artikel ini?" } %>
+    </div>
+  </div>
+
+  <div class="admin-meta-bar">
+    <span><strong>Slug:</strong> /blog/<%= @post.slug %></span>
+    <span><strong>Kategori:</strong> <%= @post.category.presence || "—" %></span>
+    <span><strong>Publish:</strong> <%= @post.published_at ? @post.published_at.strftime("%-d %B %Y, %H:%M") : "Draft" %></span>
+    <span><strong>Komentar:</strong> <%= @post.comments.count %></span>
+  </div>
+
+  <% if @post.excerpt.present? %>
+    <div class="admin-excerpt">
+      <p><%= @post.excerpt %></p>
+    </div>
+  <% end %>
+
+  <div class="admin-body-preview">
+    <%= @post.body %>
+  </div>
+</div>

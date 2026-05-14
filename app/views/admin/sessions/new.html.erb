@@ -1,0 +1,35 @@
+<div class="login-wrap">
+
+  <div class="login-brand">
+    <span class="logo-mark"></span>
+    <span class="login-brand-name">Harys.id</span>
+  </div>
+
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="login-title">Admin</h1>
+      <p class="login-sub">Masuk untuk menulis dan mengelola artikel.</p>
+    </div>
+
+    <% if alert.present? %>
+      <div class="login-alert"><%= alert %></div>
+    <% end %>
+
+    <%= form_with url: admin_login_path, class: "login-form" do |f| %>
+      <div class="login-field">
+        <%= label_tag :username, "Username", class: "login-label" %>
+        <%= text_field_tag :username, params[:username], class: "login-input", autocomplete: "username", autofocus: true %>
+      </div>
+
+      <div class="login-field">
+        <%= label_tag :password, "Password", class: "login-label" %>
+        <%= password_field_tag :password, nil, class: "login-input", autocomplete: "current-password" %>
+      </div>
+
+      <%= submit_tag "Masuk →", class: "login-submit" %>
+    <% end %>
+  </div>
+
+  <a href="<%= root_path %>" class="login-back">← Kembali ke harys.id</a>
+
+</div>

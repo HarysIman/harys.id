@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: harys-id
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: harys-id-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: BUNDLE_WITHOUT
+        value: "development:test"
+
+databases:
+  - name: harys-id-db
+    databaseName: harys_id_production
+    user: harys_id

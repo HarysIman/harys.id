@@ -1,12 +1,15 @@
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" data-controller="nav">
   <div class="nav-inner">
     <a href="<%= root_path %>" class="logo"><span class="logo-mark"></span> Harys.id</a>
-    <div class="nav-links">
-      <a href="<%= root_path %>#profil">Profil</a>
-      <a href="<%= root_path %>#pendekatan">Pendekatan</a>
-      <a href="<%= root_path %>#karya">Karya</a>
-      <a href="<%= posts_path %>">Blog</a>
-      <a href="<%= root_path %>#kontak">Kontak</a>
+    <div class="nav-links" data-nav-target="menu">
+      <a href="<%= root_path %>#profil" data-action="click->nav#close">Profil</a>
+      <a href="<%= root_path %>#pendekatan" data-action="click->nav#close">Pendekatan</a>
+      <a href="<%= root_path %>#karya" data-action="click->nav#close">Karya</a>
+      <a href="<%= posts_path %>" data-action="click->nav#close">Blog</a>
+      <a href="<%= root_path %>#kontak" data-action="click->nav#close">Kontak</a>
     </div>
+    <button class="burger" data-nav-target="burger" data-action="click->nav#toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>

@@ -27,8 +27,13 @@ jobs:
           ssh-keyscan -t rsa,ecdsa,ed25519 202.74.75.35 >> ~/.ssh/known_hosts
           echo "StrictHostKeyChecking accept-new" >> ~/.ssh/config
 
+      - name: Install Docker on VPS
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new ubuntu@202.74.75.35 \
+            "which docker || (curl -fsSL https://get.docker.com | sh && sudo usermod -aG docker ubuntu)"
+
       - name: Deploy with Kamal
         env:
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: bundle exec kamal deploy
+        run: bundle exec kamal setup || bundle exec kamal deploy

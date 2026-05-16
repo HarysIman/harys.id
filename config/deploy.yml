@@ -3,7 +3,7 @@ image: ghcr.io/harysiman/harys-id
 
 servers:
   web:
-    - YOUR_VPS_IP
+    - 202.74.75.35
 
 proxy:
   ssl: true

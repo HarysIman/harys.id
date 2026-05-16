@@ -19,17 +19,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa,ecdsa,ed25519 202.74.75.35 >> ~/.ssh/known_hosts
-          echo "StrictHostKeyChecking accept-new" >> ~/.ssh/config
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known hosts
+        run: ssh-keyscan -t rsa,ecdsa,ed25519 202.74.75.35 >> ~/.ssh/known_hosts
 
       - name: Install Docker on VPS
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=accept-new ubuntu@202.74.75.35 \
+          ssh ubuntu@202.74.75.35 \
             "which docker || (curl -fsSL https://get.docker.com | sh && sudo usermod -aG docker ubuntu)"
 
       - name: Deploy with Kamal

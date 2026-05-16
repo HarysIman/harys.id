@@ -1,7 +1,7 @@
 module ApplicationHelper
   SITE_NAME = "Harys Imanulloh"
   SITE_URL  = "https://harys.id"
-  SITE_DESC = "Portofolio personal Harys Imanulloh. Strategi pencarian, brand digital, dan beberapa proyek yang masih berjalan. Banjarnegara, Jawa Tengah."
+  SITE_DESC = "Portofolio personal Harys Imanulloh. Berpikir lambat, proyek kecil, dan beberapa hal yang masih berjalan. Purwokerto, Jawa Tengah."
   DEFAULT_OG_IMAGE = "#{SITE_URL}/icon.png"
 
   def seo_title(page_title = nil)
@@ -22,10 +22,10 @@ module ApplicationHelper
       "@type"    => "Person",
       "name"     => "Harys Imanulloh",
       "url"      => SITE_URL,
-      "jobTitle" => "SEO Strategist & Digital Brand Consultant",
+      "jobTitle" => "Slow Thinker",
       "address"  => {
         "@type"            => "PostalAddress",
-        "addressLocality"  => "Banjarnegara",
+        "addressLocality"  => "Purwokerto",
         "addressRegion"    => "Jawa Tengah",
         "addressCountry"   => "ID"
       },

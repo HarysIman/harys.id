@@ -7,7 +7,9 @@ servers:
 
 proxy:
   ssl: true
-  host: harys.space
+  hosts:
+    - harys.space
+    - www.harys.space
 
 registry:
   server: ghcr.io

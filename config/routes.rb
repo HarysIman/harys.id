@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  constraints host: /^www\./ do
+    get "(*path)", to: redirect { |params, req| "https://harys.space/#{params[:path]}" }
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
   get "sitemap.xml", to: "sitemap#index", defaults: { format: :xml }, as: :sitemap
 

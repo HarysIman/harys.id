@@ -1,5 +1,5 @@
 service: harys-id
-image: ghcr.io/harysiman/harys-id
+image: harysiman/harys-id
 
 servers:
   web:

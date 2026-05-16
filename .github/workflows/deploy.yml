@@ -24,7 +24,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 202.74.75.35 >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa,ecdsa,ed25519 202.74.75.35 >> ~/.ssh/known_hosts
+          echo "StrictHostKeyChecking accept-new" >> ~/.ssh/config
 
       - name: Deploy with Kamal
         env:

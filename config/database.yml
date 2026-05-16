@@ -24,10 +24,8 @@ test:
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary:
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    url: <%= ENV["DATABASE_URL"] %>
+    <<: *default
+    database: storage/production.sqlite3
   cache:
     <<: *default
     database: storage/production_cache.sqlite3
